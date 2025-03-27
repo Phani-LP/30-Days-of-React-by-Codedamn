@@ -1,0 +1,96 @@
+import styled from 'styled-components'
+import { useState } from 'react'
+import React from 'react'
+
+const Tabs = () => {
+  const [activeTab, setActiveTab] = useState('person')
+  
+  return (
+    <Container>
+      <TabList>
+        <Tab 
+          data-testid="person-tab" 
+          onClick={() => setActiveTab('person')}
+          active={activeTab === 'person'}
+        >
+          Person
+        </Tab>
+        <Tab
+          data-testid="address-tab"
+          onClick={() => setActiveTab('address')}
+          active={activeTab === 'address'}
+        >
+          Address
+        </Tab>
+      </TabList>
+
+      <TabContent>
+        {activeTab === 'person' ? (
+          <PersonContainer />
+        ) : (
+          <AddressContainer />
+        )}
+      </TabContent>
+    </Container>
+  )
+}
+export default Tabs;
+
+// Add styled components definitions
+const Container = styled.div`
+  /* Add your container styles here */
+`
+
+const TabList = styled.div`
+  display: flex;
+  /* Add other tab list styles */
+`
+
+const Tab = styled.button`
+  /* Base tab styles */
+  padding: 10px 20px;
+  cursor: pointer;
+  border: none;
+  background: ${props => props.active ? '#ddd' : '#f5f5f5'};
+  /* Add other tab styles based on active state */
+`
+
+const TabContent = styled.div`
+  /* Add tab content styles */
+  padding: 20px;
+  border: 1px solid #ddd;
+`
+
+const PersonContainer = () => {
+  const person = {
+    name: 'John Doe',
+    age: 32,
+    occupation: 'Developer'
+  }
+  return (
+    <div className="person-container">
+      <h2>Person Information</h2>
+      <p>Name: {person.name}</p>
+      <p>Age: {person.age}</p>
+      <p>Occupation: {person.occupation}</p>
+    </div>
+  )
+}
+
+const AddressContainer = () => {
+  const address = {
+    street: '1234 Main St',
+    city: 'San Francisco',
+    state: 'CA',
+    zip: '94107'
+  }
+  return (
+    <div className="address-container">
+      <h2>Address Information</h2>
+      <p>Street: {address.street}</p>
+      <p>City: {address.city}</p>
+      <p>State: {address.state}</p>
+      <p>Zip: {address.zip}</p>
+    </div>
+  )
+}
